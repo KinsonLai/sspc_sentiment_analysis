@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sentiment_analysis import sa
 from datetime import datetime
 
+#By KinsonLai
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
