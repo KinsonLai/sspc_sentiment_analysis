@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Happy Diary</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center;">Happy Diary</h1>
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center">There are no diary. Write one below!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Diary</th>
+            <th>Sentiment</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.sentiment }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <div>{{ average_score }}</div>
+    <div class="form">
+        <form action="/" method="POST">         
+            <div style="display:flex; justify-content:center;">
+                <textarea type="text" name="content" id="content", style="height:25vh; width:50vw;"></textarea>
+            </div>
+            <div style="display:flex; justify-content:center;">
+                <input type="submit" value="Add Diary" style="background-color:rgb(91, 91, 241); color:black; padding:.125vh .25vw; font-size:medium; font-weight:bold; font-size:1em; margin:5%; border-radius: 25px;">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
