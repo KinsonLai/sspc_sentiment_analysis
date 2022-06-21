@@ -25,12 +25,12 @@ def index():
         task_content = request.form['content']
         new_task = Todo(content=task_content, sentiment=sa(task_content))
 
-        try:
+        if True:
             db.session.add(new_task)
             db.session.commit()
             return redirect('/')
-        except:
-            return 'There was an issue adding your task'
+        #except:
+            #return 'There was an issue adding your task'
 
     else:
         tasks = Todo.query.order_by(Todo.date_created).all()
@@ -74,7 +74,10 @@ def analysis():
         t += 1
         average_score = total_score/t
         print(average_score)
-    return render_template('analysis.html', average_score=average_score, max_score=tasks[0].sentiment, min_score=tasks[-1].sentiment,max_date=tasks[0].date_created, min_date=tasks[-1].date_created)
+    if tasks:
+        return render_template('analysis.html', average_score=average_score, max_score=tasks[0].sentiment, min_score=tasks[-1].sentiment,max_date=tasks[0].date_created, min_date=tasks[-1].date_created)
+    else:
+        return "There are no data to analyse"
 
 if __name__ == "__main__":
     app.run(debug=True)
