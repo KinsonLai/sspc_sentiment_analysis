@@ -1,2 +1,2 @@
 import nltk
-nltk.download()
+nltk.download('vader_lexicon')
