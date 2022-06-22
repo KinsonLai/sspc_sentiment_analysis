@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+    <title>{{ date }}</title>
+    <style>
+        .diary-content {
+            font-size: 24px;
+            text-align: justify;
+        }
+    </style>
+    {% endblock %}
+    
+</head>
+<body>
+    {% block body %}
+    <div style="display: flex; justify-content: center; margin: auto 15%;">
+        <p class="diary-content">{{ content }}</p>
+    </div>
+    {% endblock %}
+</body>
+</html>

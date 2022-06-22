@@ -10,8 +10,12 @@
 
     <div class="form">
         <form action="/update/{{task.id}}" method="POST">
-            <input type="text" name="content" id="content" value="{{task.content}}">
-            <input type="submit" value="Update">
+            <div style="display:flex; justify-content:center;">
+                <textarea type="text" name="content" id="content" style="height:25vh; width:50vw; resize:none;">{{task.content}}</textarea>
+            </div>
+            <div style="display:flex; justify-content:center;">
+                <input type="submit" value="Update" style="background-color:rgb(41, 41, 41); color:white; padding:.125vh .25vw; font-size:medium; font-weight:bold; font-size:1em; margin:5%; border: none; padding: 1em;">
+            </div>
         </form>
     </div>
 </div>
