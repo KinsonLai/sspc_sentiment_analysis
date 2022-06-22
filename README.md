@@ -14,3 +14,5 @@ pip install -r /requirements.txt
 flask run
 ```
 
+6. go to http://127.0.0.1:5000/
+7. enjoy
