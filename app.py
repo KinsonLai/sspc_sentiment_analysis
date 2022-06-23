@@ -34,7 +34,13 @@ def index():
             return 'There was an issue adding your task' 
     else:
         tasks = Todo.query.order_by(Todo.date_created).all()
-        return render_template('index.html', tasks=tasks)
+        try:
+            if str(tasks[-1].date_created.date()) == str(datetime.today().strftime('%Y-%m-%d')):
+                return render_template('index.html', tasks=tasks, show='hidden', show_tip="visible")
+            else:
+                return render_template('index.html', tasks=tasks, show='visible', show_tip="hidden")
+        except:
+            return render_template('index.html', tasks=tasks, show_tip="hidden")
 
 """
 @app.route('/create', methods=['POST', 'GET'])
@@ -90,7 +96,7 @@ def update(id):
 @app.route('/analysis')
 def analysis():
     t,total_score,average_score=0,0,0
-    tasks = Todo.query.order_by(Todo.sentiment).all()
+    tasks = Todo.query.order_by(Todo.sentiment).all()[:-7]
     print(type(tasks))
     for task in tasks:
         total_score += task.sentiment

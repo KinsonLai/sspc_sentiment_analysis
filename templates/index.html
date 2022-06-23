@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Happy Diary</title>
+<title>Emo-Diary</title>
 {% endblock %}
 
 {% block body %}
@@ -27,16 +27,18 @@
             </tr>
         {% endfor %}
     </table>
+    <div style="display:flex; justify-content:center">
+        <a href="/analysis" style="background-color:rgb(41, 41, 41); color:white; padding:.125vh .25vw; font-size:medium; font-weight:bold; font-size:1em; margin:5%; text-decoration:none; border: none; padding: 1em; ">Analysis</a>
+    </div>
     {% endif %}
-    <div>{{ average_score }}</div>
-    <div class="form">
+    <p style="font-size:18px; text-align:center; visibility: {{show_tip}};">You have already written a diary today</p>
+    <div class="form" style="visibility: {{ show }}">
         <form action="/" method="POST">         
             <div style="display:flex; justify-content:center;">
                 <textarea type="text" name="content" id="content", style="height:25vh; width:50vw; resize:none;"></textarea>
             </div>
             <div style="display:flex; justify-content:center;">
                 <input type="submit" value="Add Diary" style="background-color:rgb(41, 41, 41); color:white; padding:.125vh .25vw; font-size:medium; font-weight:bold; font-size:1em; margin:5%; border: none; padding: 1em;">
-                <a href="/analysis" style="background-color:rgb(41, 41, 41); color:white; padding:.125vh .25vw; font-size:medium; font-weight:bold; font-size:1em; margin:5%; text-decoration:none; border: none; padding: 1em;">Analysis</a>
             </div>
         </form>
     </div>
