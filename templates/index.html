@@ -18,7 +18,7 @@
         {% for task in tasks %}
             <tr>
                 <td><a href="/read/{{ task.id }}">{{ task.date_created.date() }}</a></td>
-                <td>{{ task.sentiment }}</td>
+                <td>{% if 0.1 >= task.sentiment >= -0.1 %} neutral {% elif 0.5 > task.sentiment > 0.1 %} positive {% elif task.sentiment > 0.5 %} very positive {% elif -0.5 < task.sentiment < -0.1 %} negative {% else %} very negative {% endif %} ({{ task.sentiment*100|round(2, method='ceil') }}%)</td>
                 <td>
                     <a href="/delete/{{task.id}}">Delete</a>
                     <br>
@@ -27,9 +27,6 @@
             </tr>
         {% endfor %}
     </table>
-    <div style="display:flex; justify-content:center">
-        <a href="/analysis" style="background-color:rgb(41, 41, 41); color:white; padding:.125vh .25vw; font-size:medium; font-weight:bold; font-size:1em; margin:5%; text-decoration:none; border: none; padding: 1em; ">Analysis</a>
-    </div>
     {% endif %}
     <p style="font-size:18px; text-align:center; visibility: {{show_tip}};">You have already written a diary today</p>
     <div class="form" style="visibility: {{ show }}">

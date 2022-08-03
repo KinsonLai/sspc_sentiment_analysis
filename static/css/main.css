@@ -2,8 +2,14 @@ body, html {
     margin: 0;
     font-family: sans-serif;
     color: black;
-    overflow: hidden;
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+body::-webkit-scrollbar {
+    display: none;
+  }
 
 .content {
     margin: 0 auto;

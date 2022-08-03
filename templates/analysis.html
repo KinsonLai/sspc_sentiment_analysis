@@ -13,9 +13,10 @@
 <body>
     {% block body %}
     <h1 style="text-align:center;">Analysis</h1>
-    <h3 style="text-align:center;">Average Sentiment Score (Past 7 days): {{average_score}}</h3>
-    <h3 style="text-align:center;">Largest Sentiment Score (Past 7 days): {{max_score}} ({{max_date.date()}})</h3>
-    <h3 style="text-align:center;">Smallest Sentiment Score (Past 7 days): {{min_score}} ({{min_date.date()}})</h3>
+    <h3 style="text-align:center;">Average Sentiment Score (Past {{length}} days): {{average_score}}</h3>
+    <h3 style="text-align:center;">Largest Sentiment Score (Past {{length}} days): {{max_score}} ({{max_date.date()}})</h3>
+    <h3 style="text-align:center;">Smallest Sentiment Score (Past {{length}} days): {{min_score}} ({{min_date.date()}})</h3>
+    <h3 style="text-align:center;">Overall Sentiment: {% if 0.1 >= average_score >= -0.1 %} <h3 style="color: yellow; text-align:center; text-shadow: black;">neutral</h3> {% elif 0.5 > average_score > 0.1 %} <h3 style="color: aquamarine; text-align:center; text-shadow: black;">positive</h3> {% elif average_score > 0.5 %} <h3 style="color: green; text-align:center; text-shadow: black;">very positive</h3> {% elif -0.5 < average_score < -0.1 %} <h3 style="color: red; text-align:center; text-shadow: black;">negative</h3> {% else %} <h3 style="color: crimson; text-align:center; text-shadow: black;">very negative</h3> {% endif %}</h3>
     {% endblock %}
 </body>
 </html>
