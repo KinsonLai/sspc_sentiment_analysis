@@ -11,6 +11,16 @@ body::-webkit-scrollbar {
     display: none;
   }
 
+.analysis tr:nth-child(odd) {
+    background-color: #838383;
+    color: white;
+}
+
+.analysis {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
 .content {
     margin: 0 auto;
     width: 400px;

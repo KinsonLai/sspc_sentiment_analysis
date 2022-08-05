@@ -1,8 +1,9 @@
+from cgi import test
 from turtle import title
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sentiment_analysis import sa
-from datetime import datetime
+from datetime import datetime, timedelta
 
 #By KinsonLai
 
@@ -24,8 +25,10 @@ class Todo(db.Model):
 def index():
     if request.method == 'POST':
         task_content = request.form['content']
-        new_task = Todo(content=task_content, sentiment=sa(task_content))
-
+        try:
+            new_task = Todo(content=task_content, sentiment=sa(task_content), date_created=Todo.query.order_by(Todo.date_created).all()[0].date_created - timedelta(days=1))
+        except:
+            new_task = Todo(content=task_content, sentiment=sa(task_content))
         try:
             db.session.add(new_task)
             db.session.commit()
@@ -35,13 +38,30 @@ def index():
     else:
         tasks = Todo.query.order_by(Todo.date_created).all()
         try:
-            return render_template('index.html', tasks=tasks, show='visible', show_tip="hidden")
-            '''
+            # return render_template('index.html', tasks=tasks, show='visible', show_tip="hidden")
+           
             if str(tasks[-1].date_created.date()) == str(datetime.today().strftime('%Y-%m-%d')):
                 return render_template('index.html', tasks=tasks, show='hidden', show_tip="visible")
             else:
                 return render_template('index.html', tasks=tasks, show='visible', show_tip="hidden")
-            '''
+           
+        except:
+            return render_template('index.html', tasks=tasks, show_tip="hidden")
+
+@app.route('/test', methods=['POST', 'GET'])
+def test():
+    if request.method == 'POST':
+        task_content = request.form['content']
+        new_task = Todo(content=task_content, sentiment=sa(task_content), date_created=Todo.query.order_by(Todo.date_created).all()[0].date_created - timedelta(days=1))
+        print(Todo.query.order_by(Todo.date_created).all()[0].date_created - timedelta(days=1))
+        try:
+            return redirect('/test')
+        except:
+            return 'There was an issue adding your task' 
+    else:
+        tasks = Todo.query.order_by(Todo.date_created).all()
+        try:
+            return render_template('index.html', tasks=tasks, show='visible', show_tip="hidden")        
         except:
             return render_template('index.html', tasks=tasks, show_tip="hidden")
 
@@ -97,19 +117,19 @@ def update(id):
 
 @app.route('/parent')
 def analysis():
-    t,total_score,average_score=0,0,0
-    if Todo.query.order_by(Todo.sentiment).all()[:-7]:
-        tasks = Todo.query.order_by(Todo.sentiment).all()[:-7]
-    else:
-         tasks = Todo.query.order_by(Todo.sentiment).all()
+    total_score,average_score=0,0
+    tasks = Todo.query.order_by(Todo.sentiment).all()
     for task in tasks:
         total_score += task.sentiment
-        t += 1
-        average_score = total_score/t
+        average_score = total_score/len(tasks)
+    print(len(tasks))
+    print(tasks)
+    print(Todo)
     if tasks:
-        return render_template('analysis.html', average_score=average_score, max_score=tasks[-1].sentiment, min_score=tasks[0].sentiment,max_date=tasks[-1].date_created, min_date=tasks[0].date_created, length=t)
+        return render_template('analysis.html', average_score=average_score, max_score=tasks[-1].sentiment, min_score=tasks[0].sentiment,max_date=tasks[-1].date_created, min_date=tasks[0].date_created, length=len(tasks))
     else:
         return "There are no data to analyse"
 
 if __name__ == "__main__":
     app.run(debug=True)
+    

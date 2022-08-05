@@ -12,11 +12,23 @@
 </head>
 <body>
     {% block body %}
-    <h1 style="text-align:center;">Analysis</h1>
-    <h3 style="text-align:center;">Average Sentiment Score (Past {{length}} days): {{average_score}}</h3>
-    <h3 style="text-align:center;">Largest Sentiment Score (Past {{length}} days): {{max_score}} ({{max_date.date()}})</h3>
-    <h3 style="text-align:center;">Smallest Sentiment Score (Past {{length}} days): {{min_score}} ({{min_date.date()}})</h3>
-    <h3 style="text-align:center;">Overall Sentiment: {% if 0.1 >= average_score >= -0.1 %} <h3 style="color: yellow; text-align:center; text-shadow: black;">neutral</h3> {% elif 0.5 > average_score > 0.1 %} <h3 style="color: aquamarine; text-align:center; text-shadow: black;">positive</h3> {% elif average_score > 0.5 %} <h3 style="color: green; text-align:center; text-shadow: black;">very positive</h3> {% elif -0.5 < average_score < -0.1 %} <h3 style="color: red; text-align:center; text-shadow: black;">negative</h3> {% else %} <h3 style="color: crimson; text-align:center; text-shadow: black;">very negative</h3> {% endif %}</h3>
+    <h1 style="text-align:center; background-color: #424242; color: white; width: 60%; margin-left: auto; margin-right: auto; padding-top: 0.5em; padding-bottom: 0.5em; margin-bottom: 0;">Analysis</h1>
+    <table style="margin-left: auto; margin-right: auto; width: 60%;" class="analysis">
+        <tr>
+            <td class="analysis"><h3 style="text-align:center; font-weight: bold;">Average Sentiment Score (Past {{length}} days)</h3></td>
+            <td class="analysis"><h3 style="text-align:center;">{{average_score}}</h3></td>
+        </tr>
+            <td class="analysis"><h3 style="text-align:center; font-weight: bold;">Largest Sentiment Score (Past {{length}} days)</h3></td>
+            <td class="analysis"><h3 style="text-align:center;">{{max_score}} ({{max_date.date()}})</h3></td>
+        <tr>
+            <td class="analysis"><h3 style="text-align:center; font-weight: bold;">Smallest Sentiment Score (Past {{length}} days)</h3></td>
+            <td class="analysis"><h3 style="text-align:center;">{{min_score}} ({{min_date.date()}})</h3></td>
+        </tr>
+        <tr>
+            <th class="analysis"><h3 style="text-align:center; font-weight: bold;">Overall Sentiment</th>
+            <th class="analysis">{% if 0.1 >= average_score >= -0.1 %} <h3 style="color: rgb(255, 208, 0); text-align:center; text-shadow: black;">neutral</h3> {% elif 0.5 > average_score > 0.1 %} <h3 style="color: aquamarine; text-align:center; text-shadow: black;">positive</h3> {% elif average_score > 0.5 %} <h3 style="color: green; text-align:center; text-shadow: black;">very positive</h3> {% elif -0.5 < average_score < -0.1 %} <h3 style="color: red; text-align:center; text-shadow: black;">negative</h3> {% else %} <h3 style="color: crimson; text-align:center; text-shadow: black;">very negative</h3> {% endif %}</h3></th>
+        </tr>
+    </table>
     {% endblock %}
 </body>
 </html>
