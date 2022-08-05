@@ -18,7 +18,7 @@
         {% for task in tasks %}
             <tr>
                 <td><a href="/read/{{ task.id }}">{{ task.date_created.date() }}</a></td>
-                <td>{% if 0.1 >= task.sentiment >= -0.1 %} neutral {% elif 0.5 > task.sentiment > 0.1 %} positive {% elif task.sentiment > 0.5 %} very positive {% elif -0.5 < task.sentiment < -0.1 %} negative {% else %} very negative {% endif %} ({{ task.sentiment*100|round(2, method='ceil') }}%)</td>
+                <td>{% if 0.075 >= task.sentiment >= -0.075 %} neutral {% elif 0.5 > task.sentiment > 0.075 %} positive {% elif task.sentiment > 0.5 %} very positive {% elif -0.5 < task.sentiment < -0.075 %} negative {% else %} very negative {% endif %} ({{ task.sentiment*100|round(2, method='ceil') }}%)</td>
                 <td>
                     <a href="/delete/{{task.id}}">Delete</a>
                     <br>
